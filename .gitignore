@@ -1,3 +1,4 @@
 venv/
 .idea/
 try.py
+__pycache__/
