@@ -6,5 +6,5 @@ from selenium.webdriver.support.wait import WebDriverWait
 class BaseClass:
 
     def waitElement(self, locator):
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((locator)))
+        WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((locator)))
 

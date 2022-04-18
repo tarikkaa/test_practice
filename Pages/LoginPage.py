@@ -8,10 +8,11 @@ class LoginPage:
     def __init__(self, driver):
         self.driver = driver
 
-    URL = "https://uk-ua.facebook.com/"
+    URL = "https://www.facebook.com"
     login_field = (By.ID, "email")
     password_field = (By.ID, "pass")
     login_button = (By.NAME, "login")
+    wrong_cred_window_text = (By.CLASS_NAME, "_9ay7")
 
 
     def load(self):
@@ -29,6 +30,16 @@ class LoginPage:
 
     def clickLoginButton(self):
         self.driver.find_element(*LoginPage.login_button).click()
+
+    def enterWrongLogin(self):
+        self.driver.find_element(*self.login_field).send_keys(TestData.wrong_login)
+
+    def enterWrongPassword(self):
+        self.driver.find_element(*LoginPage.password_field).send_keys(TestData.wrong_password)
+
+    def getWrongCredWindowText(self):
+        return self.driver.find_element(*self.wrong_cred_window_text).text
+
 
 
 
