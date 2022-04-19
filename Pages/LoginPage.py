@@ -1,7 +1,5 @@
 from selenium.webdriver.common.by import By
-
 from utilities.TestData import TestData
-
 
 class LoginPage:
 
@@ -14,13 +12,8 @@ class LoginPage:
     login_button = (By.NAME, "login")
     wrong_cred_window_text = (By.CLASS_NAME, "_9ay7")
 
-
     def load(self):
         self.driver.get(self.URL)
-
-    def getPageTitle(self):
-        title = self.driver.title
-        return title
 
     def enterLogin(self):
         self.driver.find_element(*self.login_field).send_keys(TestData.login)
@@ -39,6 +32,16 @@ class LoginPage:
 
     def getWrongCredWindowText(self):
         return self.driver.find_element(*self.wrong_cred_window_text).text
+
+    def getLoginField(self):
+        return self.driver.find_element(*self.login_field)
+
+    def getPasswordField(self):
+        return self.driver.find_element(*self.password_field)
+
+
+
+
 
 
 
