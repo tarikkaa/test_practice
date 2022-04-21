@@ -12,6 +12,8 @@ class LoginPage:
     login_button = (By.NAME, "login")
     wrong_cred_window_text = (By.CLASS_NAME, "_9ay7")
 
+
+
     def load(self):
         self.driver.get(self.URL)
 

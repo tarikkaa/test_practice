@@ -41,6 +41,19 @@ class FacebookTest(BaseClass):
         assert "The password you’ve entered is incorrect. Forgot Password?" == wrong_password_text
 
 
+    @pytest.mark.parametrize("username, passw", [("John", 111), ("Vasyl", 2222)])
+    def test_switch_user(self, username, passw):
+        loginPage = LoginPage(self.driver)
+        loginPage.load()
+        loginPage.getLoginField().send_keys(username)
+        loginPage.getPasswordField().send_keys(passw)
+        login_value = loginPage.getLoginField().get_attribute("value")
+        password_value =loginPage.getPasswordField().get_attribute("value")
+        assert login_value == username
+        assert int(password_value) == passw
+
+
+
 '''''
     def test_login_wrong_username(self):
         loginPage = LoginPage(self.driver)

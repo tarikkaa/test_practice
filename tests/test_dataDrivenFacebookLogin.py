@@ -1,5 +1,7 @@
 import time
 
+import pytest
+
 from utilities import xlUtil
 from utilities.BaseClass import BaseClass
 from Pages.LoginPage import LoginPage
@@ -7,10 +9,11 @@ from Pages.MainPage import MainPage
 
 class TestDataDrivenLogin(BaseClass):
 
+    @pytest.mark.xfail
     def test_data_driven_login(self):
         loginPage = LoginPage(self.driver)
         mainPage = MainPage(self.driver)
-        path = "C:\\Users\\taras.andrushchak\\PycharmProjects\\test_practice\\utilities\\Login.xlsx"
+        path = "C:\\Users\\taras.andrushchak\\PycharmProjects\\test_practice\\utilities\\test_data\\Login.xlsx"
         rows = xlUtil.getRowCount(path, 'Sheet1')
         for row in range(2, rows+1):
             login = xlUtil.readData(path, 'Sheet1', row, 1)
@@ -31,7 +34,7 @@ class TestDataDrivenLogin(BaseClass):
             else:
                 print("wrong credentials - test passed")
                 xlUtil.writeData(path, 'Sheet1', row, 3, 'test failed')
-                assert self.driver.title != "(1) Facebook"
+                assert self.driver.title == "(1) Facebook"
 
 
 
