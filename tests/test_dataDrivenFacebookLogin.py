@@ -1,15 +1,21 @@
 import time
 
-import pytest
+import pytest_check as check
+from pytest_check import check_func
 
-from utilities import xlUtil
-from utilities.BaseClass import BaseClass
 from Pages.LoginPage import LoginPage
 from Pages.MainPage import MainPage
+from utilities import xlUtil
+from utilities.BaseClass import BaseClass
+
 
 class TestDataDrivenLogin(BaseClass):
 
-    @pytest.mark.xfail
+    @check_func
+    def is_main_page_title(self, a):
+        assert a == "(1) Facebook"
+
+
     def test_data_driven_login(self):
         loginPage = LoginPage(self.driver)
         mainPage = MainPage(self.driver)
@@ -25,16 +31,17 @@ class TestDataDrivenLogin(BaseClass):
             loginPage.clickLoginButton()
             time.sleep(3)
             if self.driver.title == "(1) Facebook":
-                print("test is passed")
                 xlUtil.writeData(path, 'Sheet1', row, 3, "test passed")
-                self.waitElement(mainPage.account_button)
+                check.equal(self.driver.title, "(1) Facebook")
                 mainPage.gotoAccountSection()
-                self.waitElement(mainPage.logout_button)
+                self.waitElement(MainPage.logout_button)
                 mainPage.logOut()
             else:
-                print("wrong credentials - test passed")
                 xlUtil.writeData(path, 'Sheet1', row, 3, 'test failed')
-                assert self.driver.title == "(1) Facebook"
+                #check.equal (self.driver.title, "(1) Facebook")
+                title = self.driver.title
+                self.is_main_page_title(title)
+
 
 
 

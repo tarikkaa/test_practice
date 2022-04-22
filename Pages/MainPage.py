@@ -5,7 +5,7 @@ class MainPage:
         self.driver = driver
 
     username = (By.XPATH, "//span[contains(text(), 'John Lucky')]")
-    account_button = (By.XPATH, "//div[@aria-label='Account']")
+    account_button = (By.XPATH, "//div[@aria-label='Your profile']")
     logout_button = (By.XPATH, "//span[contains(text(),'Log Out')]")
 
     def getUsername(self):

@@ -11,7 +11,12 @@ class FacebookTest(BaseClass):
     def test_login_page_title(self):
         loginPage = LoginPage(self.driver)
         loginPage.load()
+        try:
+            assert self.getPageTitle() == 111
+        except AssertionError as error:
+            print(f"First assert fails: {error}")
         assert self.getPageTitle() == TestData.loginPageTitle
+
 
     def test_login_logout(self):
         loginPage = LoginPage(self.driver)

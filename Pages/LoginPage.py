@@ -13,7 +13,6 @@ class LoginPage:
     wrong_cred_window_text = (By.CLASS_NAME, "_9ay7")
 
 
-
     def load(self):
         self.driver.get(self.URL)
 
@@ -40,6 +39,8 @@ class LoginPage:
 
     def getPasswordField(self):
         return self.driver.find_element(*self.password_field)
+
+
 
 
 

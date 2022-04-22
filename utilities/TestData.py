@@ -1,6 +1,5 @@
 #import getpass
 import os
-
 import dotenv
 from dotenv import load_dotenv
 
@@ -9,6 +8,8 @@ class TestData:
     load_dotenv(__find_env)
     login = os.environ.get("login")
     password = os.environ.get("password")
+
+    #login = input("Login: ")
     #password = getpass.getpass()
 
     wrong_login = "test@test.com"
