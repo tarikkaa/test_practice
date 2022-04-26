@@ -43,7 +43,7 @@ class FacebookTest(BaseClass):
         loginPage.clickLoginButton()
         self.waitElement(loginPage.wrong_cred_window_text)
         wrong_password_text = loginPage.getWrongCredWindowText()
-        assert "The password you’ve entered is incorrect. Forgot Password?" == wrong_password_text
+        assert "Wrong Credentials" == wrong_password_text
 
 
     @pytest.mark.parametrize("username, passw", [("John", 111), ("Vasyl", 2222)])

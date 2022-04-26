@@ -1,56 +1,47 @@
 import pytest
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
+from utilities.config import Config
+
 driver = None
 
+pytest_plugins = [
+   "tests.fixtures.fixtures_try"
+  ]
 
-
-''''
-@pytest.fixture(scope="class")
-def setup(request):
-    global driver
-    #s = Service("/Users/tar/Drivers/chromedriver")
-    s = Service("C:\\ChromeDriver\\chromedriver.exe")
-    driver = webdriver.Chrome(service=s)
-    request.cls.driver = driver
-    driver.maximize_window()
-    yield
-    driver.close()
-'''
-
-
-def pytest_addoption_browser(parser):
+def pytest_addoption(parser):
     parser.addoption('--browser', action='store', default='chrome', help='choose the browser: --chrome or --firefox')
+    parser.addoption('--env', action='store', default='windows', help='choose current OS: --windows or --mac')
 
 @pytest.fixture(scope='class')
-def setup(request):
+def getOS(request):
+    env = request.config.getoption("--env")
+    return env
+
+@pytest.fixture(scope='class')
+def setOS(getOS):
+    os = Config(getOS)
+    return os
+
+@pytest.fixture(scope='class')
+def setup(request, setOS):
     global driver
     browser = request.config.getoption('browser')
     if browser == "chrome":
-        s = Service("C:\\ChromeDriver\\chromedriver.exe")
+        s = Service(setOS.chrome_driver)
         driver = webdriver.Chrome(service=s)
     elif browser == "firefox":
-        s = Service("C:\\firefoxDriver\\geckodriver.exe")
+        s = Service(setOS.firefox_driver)
         driver = webdriver.Firefox(service=s)
     else:
         raise Exception("Unsupported browser")
-
     request.cls.driver = driver
     driver.maximize_window()
     yield
     driver.close()
 
-'''
-@pytest.fixture(scope='session')
-def env(request):
-    return request.config.getoption("--env")
 
 
-@pytest.fixture(scope='session')
-def set_driver(env):
-    config = Config(env)
-    return config
-'''
 
 
 

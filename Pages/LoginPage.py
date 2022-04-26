@@ -10,7 +10,7 @@ class LoginPage:
     login_field = (By.ID, "email")
     password_field = (By.ID, "pass")
     login_button = (By.NAME, "login")
-    wrong_cred_window_text = (By.CLASS_NAME, "_9ay7")
+    wrong_cred_window_text = (By.CLASS_NAME, "fsl")
 
 
     def load(self):

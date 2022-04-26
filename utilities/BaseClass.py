@@ -13,5 +13,5 @@ class BaseClass:
         WebDriverWait(self.driver, 10).until(EC.title_is(page_title))
 
     def waitElement(self, locator):
-        WebDriverWait(self.driver, 10).until(EC.presence_of_element_located((locator)))
+        WebDriverWait(self.driver, 15).until(EC.presence_of_element_located((locator)))
 
